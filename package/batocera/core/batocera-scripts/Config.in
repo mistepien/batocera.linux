@@ -2,6 +2,8 @@ config BR2_PACKAGE_BATOCERA_SCRIPTS
         bool "batocera-scripts"
 
         select BR2_PACKAGE_PCIUTILS
+	select BR2_PACKAGE_PYTHON2_GOBJECT
+	select BR2_PACKAGE_PYTHON
 
         help
          Batocera scripts
@@ -23,5 +25,8 @@ config BR2_PACKAGE_BATOCERA_AUDIO_RPI
 
 config BR2_PACKAGE_BATOCERA_AUDIO_ODROIDGOA
         bool "alsa for odroidgoa"
+
+config BR2_PACKAGE_BATOCERA_AUDIO_VIM3
+        bool "alsa for vim3"
 
 endchoice

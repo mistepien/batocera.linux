@@ -40,7 +40,7 @@ batocera-docker-image: .ba-docker-image-available
 
 update-docker-image:
 	-@rm .ba-docker-image-available > /dev/null
-	@$(MAKE) download-docker-image
+	@$(MAKE) batocera-docker-image
 
 publish-docker-image:
 	@docker push $(DOCKER_REPO)/$(IMAGE_NAME):latest
@@ -126,3 +126,8 @@ ccache-dir:
 
 %-tail: output-dir-%
 	@tail -F $(OUTPUT_DIR)/$*/build/build-time.log
+
+%-toolchain: %-config
+	@$(MAKE) $*-build CMD=toolchain
+	@$(MAKE) $*-build CMD=llvm
+

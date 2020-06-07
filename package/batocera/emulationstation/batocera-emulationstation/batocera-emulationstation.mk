@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-BATOCERA_EMULATIONSTATION_VERSION = 0d6f026db1746cb23bc19664942a666079a30d78
+BATOCERA_EMULATIONSTATION_VERSION = 7ddd2eaae30c5cf9a243503acdcbaa6f982130fd
 BATOCERA_EMULATIONSTATION_SITE = https://github.com/batocera-linux/batocera-emulationstation
 BATOCERA_EMULATIONSTATION_SITE_METHOD = git
 BATOCERA_EMULATIONSTATION_LICENSE = MIT
@@ -49,8 +49,8 @@ else
 	BATOCERA_EMULATIONSTATION_CONF_OPTS += -DENABLE_FILEMANAGER=0
 endif
 
-# cec is causing issues with es on xu4
-ifeq ($(BR2_PACKAGE_LIBCEC_EXYNOS_API),y)
+# cec is causing issues with es on xu4 and vim3
+ifeq ($(BR2_PACKAGE_LIBCEC_EXYNOS_API)$(BR2_PACKAGE_BATOCERA_TARGET_VIM3),y)
 	BATOCERA_EMULATIONSTATION_CONF_OPTS += -DCEC=OFF
 endif
 
@@ -61,8 +61,10 @@ endef
 
 define BATOCERA_EMULATIONSTATION_RESOURCES
 	$(INSTALL) -m 0755 -d $(TARGET_DIR)/usr/share/emulationstation/resources/help
+	$(INSTALL) -m 0755 -d $(TARGET_DIR)/usr/share/emulationstation/resources/flags
 	$(INSTALL) -m 0644 -D $(@D)/resources/*.* $(TARGET_DIR)/usr/share/emulationstation/resources
 	$(INSTALL) -m 0644 -D $(@D)/resources/help/*.* $(TARGET_DIR)/usr/share/emulationstation/resources/help
+	$(INSTALL) -m 0644 -D $(@D)/resources/flags/*.* $(TARGET_DIR)/usr/share/emulationstation/resources/flags
 
 	# es_input.cfg
 	mkdir -p $(TARGET_DIR)/usr/share/batocera/datainit/system/configs/emulationstation
@@ -88,10 +90,6 @@ endif
 
 ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_S912),y)
 	BATOCERA_EMULATIONSTATION_BOOT_SCRIPT=S31emulationstation_fbegl_nosplash
-endif
-
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_TINKERBOARD)$(BR2_PACKAGE_BATOCERA_TARGET_MIQI),y)
-	BATOCERA_EMULATIONSTATION_BOOT_SCRIPT=S31emulationstation_fbgl_nosplash
 endif
 
 ifeq ($(BR2_PACKAGE_XSERVER_XORG_SERVER),y)

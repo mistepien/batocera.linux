@@ -270,6 +270,9 @@ gx4000:
 thomson:
   emulator: libretro
   core:     theodore
+pc88:
+  emulator: libretro
+  core:     quasi88
 pc98:
   emulator: libretro
   core:     np2kai
@@ -288,3 +291,10 @@ openbor:
   options:
     ratio: 0
     filter: 0
+windows:
+  emulator: wine
+  core:     wine
+windows_installers:
+  emulator: wine
+  core:     wine
+

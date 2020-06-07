@@ -3,8 +3,8 @@
 # retroarch
 #
 ################################################################################
-# Version.: Commits on May 09, 2020
-RETROARCH_VERSION = df3af35ee46fdd91dec7ef51d9b4493802b9ea56
+# Version.: Commits on May 27, 2020
+RETROARCH_VERSION = v1.8.8
 RETROARCH_SITE = $(call github,libretro,RetroArch,$(RETROARCH_VERSION))
 RETROARCH_LICENSE = GPLv3+
 RETROARCH_DEPENDENCIES = host-pkgconf dejavu retroarch-assets flac
@@ -122,7 +122,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_XSERVER_XORG_SERVER),)
 	ifeq ($(BR2_PACKAGE_MESA3D_OPENGL_EGL),y)
-		TARGET_CFLAGS += "-DMESA_EGL_NO_X11_HEADERS"
+		RETROARCH_TARGET_CFLAGS += -DEGL_NO_X11
 	endif
 endif
 
@@ -130,7 +130,7 @@ define RETROARCH_CONFIGURE_CMDS
 	(cd $(@D); rm -rf config.cache; \
 		$(TARGET_CONFIGURE_ARGS) \
 		$(TARGET_CONFIGURE_OPTS) \
-		CFLAGS="$(TARGET_CFLAGS)" \
+		CFLAGS="$(TARGET_CFLAGS) $(RETROARCH_TARGET_CFLAGS)" \
 		LDFLAGS="$(TARGET_LDFLAGS) -lc" \
 		CROSS_COMPILE="$(HOST_DIR)/usr/bin/" \
 		./configure \

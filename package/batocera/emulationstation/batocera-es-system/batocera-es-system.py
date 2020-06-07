@@ -108,6 +108,9 @@ class EsSystemConf:
         systemTxt =  "  <system>\n"
         systemTxt += "        <fullname>%s</fullname>\n" % (data["name"])
         systemTxt += "        <name>%s</name>\n"           % (system)
+        systemTxt += "        <manufacturer>%s</manufacturer>\n" % (data["manufacturer"])
+        systemTxt += "        <release>%s</release>\n" % (data["release"])
+        systemTxt += "        <hardware>%s</hardware>\n" % (data["hardware"])
         if pathValue != "":
             systemTxt += "        <path>%s</path>\n"           % (pathValue)
         if listExtensions != "":
@@ -259,7 +262,14 @@ class EsSystemConf:
                                 if system_featuresTxt != "":
                                     system_featuresTxt += ", "
                                 system_featuresTxt += feature
-                        featuresTxt += "      <system name=\"{}\" features=\"{}\" />\n".format(system, system_featuresTxt)
+                        featuresTxt += "      <system name=\"{}\" features=\"{}\" >\n".format(system, system_featuresTxt)
+                        if "cfeatures" in features[emulator]["systems"][system]:
+                            for cfeature in features[emulator]["systems"][system]["cfeatures"]:
+                                featuresTxt += "        <feature name=\"{}\" value=\"{}\">\n".format(features[emulator]["systems"][system]["cfeatures"][cfeature]["prompt"], cfeature)
+                                for choice in features[emulator]["systems"][system]["cfeatures"][cfeature]["choices"]:
+                                    featuresTxt += "        <choice name=\"{}\" value=\"{}\" />\n".format(choice, features[emulator]["systems"][system]["cfeatures"][cfeature]["choices"][choice])
+                                featuresTxt += "        </feature>\n"                        
+                        featuresTxt += "      </system>\n"
                     featuresTxt += "    </systems>\n"
                 if "cfeatures" in features[emulator]:
                     for cfeature in features[emulator]["cfeatures"]:

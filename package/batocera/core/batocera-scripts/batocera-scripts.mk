@@ -18,6 +18,8 @@ else ifeq ($(BR2_PACKAGE_BATOCERA_AUDIO_RPI),y)
 else ifeq ($(BR2_PACKAGE_BATOCERA_AUDIO_ODROIDGOA),y)
 	BATOCERA_AUDIO_SCRIPT=odroidgoa
 	BATOCERA_SCRIPTS_POST_INSTALL_TARGET_HOOKS += BATOCERA_SCRIPTS_INSTALL_AUDIO_DMIX
+else ifeq ($(BR2_PACKAGE_BATOCERA_AUDIO_VIM3),y)
+	BATOCERA_AUDIO_SCRIPT=vim3
 else
 	BATOCERA_AUDIO_SCRIPT=none
 endif
@@ -65,10 +67,20 @@ endef
 define BATOCERA_SCRIPTS_INSTALL_XORG
 	mkdir -p $(TARGET_DIR)/etc/X11/xorg.conf.d
 	ln -fs /userdata/system/99-nvidia.conf $(TARGET_DIR)/etc/X11/xorg.conf.d/99-nvidia.conf
+	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-record $(TARGET_DIR)/usr/bin/
+endef
+
+define BATOCERA_SCRIPTS_INSTALL_WINE
+	ln -fs /userdata/system/99-nvidia.conf $(TARGET_DIR)/etc/X11/xorg.conf.d/99-nvidia.conf
+	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-wine $(TARGET_DIR)/usr/bin/
 endef
 
 ifeq ($(BR2_PACKAGE_XSERVER_XORG_SERVER),y)
   BATOCERA_SCRIPTS_POST_INSTALL_TARGET_HOOKS += BATOCERA_SCRIPTS_INSTALL_XORG
+endif
+
+ifeq ($(BR2_PACKAGE_WINE),y)
+  BATOCERA_SCRIPTS_POST_INSTALL_TARGET_HOOKS += BATOCERA_SCRIPTS_INSTALL_WINE
 endif
 
 $(eval $(generic-package))

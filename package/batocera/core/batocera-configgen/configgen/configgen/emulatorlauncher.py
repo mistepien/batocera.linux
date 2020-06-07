@@ -13,16 +13,19 @@ from generators.moonlight.moonlightGenerator import MoonlightGenerator
 from generators.mupen.mupenGenerator import MupenGenerator
 from generators.ppsspp.ppssppGenerator import PPSSPPGenerator
 from generators.reicast.reicastGenerator import ReicastGenerator
+from generators.flycast.flycastGenerator import FlycastGenerator
 from generators.dolphin.dolphinGenerator import DolphinGenerator
 from generators.pcsx2.pcsx2Generator import Pcsx2Generator
 from generators.scummvm.scummvmGenerator import ScummVMGenerator
 from generators.dosbox.dosboxGenerator import DosBoxGenerator
+from generators.dosboxx.dosboxxGenerator import DosBoxxGenerator
 from generators.vice.viceGenerator import ViceGenerator
 from generators.fsuae.fsuaeGenerator import FsuaeGenerator
 from generators.amiberry.amiberryGenerator import AmiberryGenerator
 from generators.citra.citraGenerator import CitraGenerator
 from generators.daphne.daphneGenerator import DaphneGenerator
 from generators.openbor.openborGenerator import OpenborGenerator
+from generators.wine.wineGenerator import WineGenerator
 import controllersConfig as controllers
 import signal
 import batoceraFiles
@@ -39,17 +42,20 @@ generators = {
     'moonlight': MoonlightGenerator(),
     'scummvm': ScummVMGenerator(),
     'dosbox': DosBoxGenerator(),
+    'dosboxx': DosBoxxGenerator(),
     'mupen64plus': MupenGenerator(),
     'vice': ViceGenerator(),
     'fsuae': FsuaeGenerator(),
     'amiberry': AmiberryGenerator(),
     'reicast': ReicastGenerator(),
+    'flycast': FlycastGenerator(),
     'dolphin': DolphinGenerator(),
     'pcsx2': Pcsx2Generator(),
     'ppsspp': PPSSPPGenerator(),
     'citra' : CitraGenerator(),
     'daphne' : DaphneGenerator(),
-    'openbor' : OpenborGenerator()
+    'openbor' : OpenborGenerator(),
+    'wine' : WineGenerator()
 }
 
 def main(args, maxnbplayers):
